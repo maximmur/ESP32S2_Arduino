@@ -1,1 +1,2 @@
-Upgraded simple blink inbuilt or connected to pin LED, with no delay
+Upgeraded Blinking with two LEDs without delay
+Мигание двумя сетодиодами без использования задержки

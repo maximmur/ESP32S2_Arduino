@@ -1,10 +1,11 @@
 /*
 ESP32-S2;Arduino;Platformio
 Мигание сетодиодом используя задержку с выводом статуса в терминал
+Blinking inbuilt LED using a delay with status output to the terminal
 */
 #include <Arduino.h>
 
-//int LED1 = 1;              // LED connected to digital pin 13
+//int LED1 = 1;              // LED connected to digital pin 1
 #define LED1 1
 
 void setup() {

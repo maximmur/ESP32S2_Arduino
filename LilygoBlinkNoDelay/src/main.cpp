@@ -1,6 +1,7 @@
 /*
 ESP32-S2;Arduino;Platformio
 Мигание двумя сетодиодами без использования задержки
+Blinking two LEDs without delay
 */
 #include <Arduino.h>
 
@@ -13,9 +14,9 @@ int led2_State = LOW;   // ledState used to set the LED 2
 unsigned long previousMillis_LED1 = 0;   // will store last time LED 1 was updated
 unsigned long previousMillis_LED2 = 0;   // will store last time LED 2 was updated
 
-//int LED1 = 1;              // LED connected to digital pin 13
-#define LED1 1
-#define LED2 2
+//int LED1 = 1;              // LED connected to digital pin 1
+#define LED1 1				 // LED connected to digital pin 1
+#define LED2 2				 // LED connected to digital pin 2
 
 void setup() {
   // put your setup code here, to run once:
@@ -27,7 +28,7 @@ void setup() {
 
 void loop() {
   if(millis()-previousMillis_LED1 >= TIME_INTERVAL_LED1){  // check to see if it's time to blink the LED 1 
-   led1_State = (led1_State == LOW) ? HIGH : LOW;
+   led1_State = (led1_State == LOW) ? HIGH : LOW; //if (led1_State == LOW) then HIGH else LOW
    digitalWrite(LED1, led1_State); // sets the LED status
    previousMillis_LED1 = millis();   
   }
