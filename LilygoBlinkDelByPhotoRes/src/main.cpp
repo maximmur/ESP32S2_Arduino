@@ -27,7 +27,7 @@ const int sensorPin = A3;    // Connect sensor to Analog input 3
 /*const int low  = 200;
 const int high = 800;*/
 const int low  = 500;
-const int high = 1700;
+const int high = 1500;
 
 int delayval = 0;
 int delayval_Filtered = 0;
