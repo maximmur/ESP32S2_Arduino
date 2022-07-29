@@ -1,3 +1,12 @@
+/*
+ESP32-S2;Arduino;Platformio
+Определяем размер и тип подключенной SD карты
+Determine the size and type of the connected SD card
+
+Используемый модуль:
+Подключение:
+Пример вывода:
+*/
 #include <Arduino.h>
 #include "SD.h"
 
