@@ -6,6 +6,14 @@ Determine the size and type of the connected SD card
 Используемый модуль:
 Подключение:
 Пример вывода:
+
+CS
+SCK
+MISO
+MOSI
+
+WP
+HOLD
 */
 #include <Arduino.h>
 #include "SD.h"
