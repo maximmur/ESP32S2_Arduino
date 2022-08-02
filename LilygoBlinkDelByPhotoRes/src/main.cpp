@@ -90,17 +90,29 @@ uint32_t readADC_ScalPrcnt(int ADC_Raw)
   Scal = constrain(Scal, 0, 100);
   return (Scal);
 }
+
+//Get Delay
+uint32_t getDelay(int ADC_Raw)
+{
+  uint32_t Scal = 0;
+  Scal = map(ADC_Raw, 0, 100, 100, 5);
+  Scal = constrain(Scal, 5, 100);
+  Scal = Scal * 10;
+  return (Scal);
+}
+
 void loop()
 {
 
   
   int delayval = analogRead(sensorPin);    // read the analog input
   
-  int delayval_Filtered = readADC_Avg(delayval);
-  int delayval_Scaled = readADC_Scal(delayval);
-  int val_Scal = readADC_ScalVal(delayval_Filtered);
-  int delayval_SAndF = readADC_Scal(delayval_Filtered);
-  int delayval_SAndFPrcnt = readADC_ScalPrcnt(val_Scal);
+  int delayval_Filtered = readADC_Avg(delayval);    //ADC Noise Reduction By Multi-Sampling & Moving Average Digital Filtering
+  int delayval_Scaled = readADC_Scal(delayval);     //ADC Scaling. Scales the delay value between the min and max values
+  int val_Scal = readADC_ScalVal(delayval_Filtered);    //ADC Scaling. Scales the value between the min and max values
+  int delayval_SAndF = readADC_Scal(delayval_Filtered);   //ADC Scaling. Scales the delay value between the min and max values
+  int delayval_SAndFPrcnt = readADC_ScalPrcnt(val_Scal);    //ADC Scaling. Scales the delay value between the 0 and 100%
+  int del = getDelay(delayval_SAndFPrcnt);    //Get Delay
 
   Serial.print("AnalogValue:");
   Serial.print(delayval);
@@ -118,8 +130,8 @@ void loop()
   Serial.println(delayval_SAndFPrcnt);
 
   digitalWrite(LED1, HIGH); // set the LED on
-  delay(delayval_SAndF);    // delay is dependent on light level
+  delay(del);    // delay is dependent on light level
   digitalWrite(LED1, LOW);  // set the LED off
-  delay(delayval_SAndF);
+  delay(del);
 }
 
