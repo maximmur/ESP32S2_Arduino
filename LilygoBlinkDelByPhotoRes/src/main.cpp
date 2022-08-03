@@ -1,14 +1,16 @@
 /*
 ESP32-S2; Arduino; Platformio
-Управление частотой мигания светодиодом, с помощью светодиода вместо 
+Управление частотой мигания светодиодом и тоном пищалки, с помощью светодиода вместо 
 фоторезистора с масштабированной частотой мигания, фильтрацией шумов и 
 выводом в монитор порта
-Controlling the blink frequency of the LED, using a LED diode instead 
+Controlling the blink frequency of the LED and buzzer tone, using a LED diode instead 
 photoresistor with scaled blink rate, noise filtering and port monitor output
 
 Connections:
 Sensor LED connected to GND and IO3
 Indicator LED connected to IO1-1kOm Resistor-GND
+
+Buzzer connected to GND and resistor of 400 Ohm and IO0
 
 Experiment results:
 0-Bright light 6373-Dark
@@ -20,6 +22,7 @@ Bright light then Dark 0 - 6373
 
 #define FILTER_LEN  30 //Number of probes for ADC Noise Reduction filter
 #define LED1 1				 // LED connected to digital pin 1
+#define BUZZER 0				 // BUZZER connected to digital pin 0
 
 const int sensorPin = A3;    // Connect sensor to Analog input 3
 
@@ -43,6 +46,7 @@ const int maxDuration = 1000; // maximum wait between blinks
 void setup()
 {
   pinMode(LED1, OUTPUT);  // enable output on the led pin
+  pinMode(BUZZER, OUTPUT);  // enable output on the led pin
     Serial.begin(9600);   // initialize Serial
 }
 
@@ -130,8 +134,10 @@ void loop()
   Serial.println(delayval_SAndFPrcnt);
 
   digitalWrite(LED1, HIGH); // set the LED on
+  digitalWrite(BUZZER, HIGH); // set the LED on
   delay(del);    // delay is dependent on light level
   digitalWrite(LED1, LOW);  // set the LED off
+  digitalWrite(BUZZER, LOW); // set the LED on
   delay(del);
 }
 
