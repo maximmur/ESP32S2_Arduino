@@ -10,6 +10,7 @@ not allow you to control of the tone, or pitch.
 
 Используемый модуль:
 Подключение: Баззер - к - + через резистор 400 Ом к I00
+Other songs on: https://github.com/robsoncouto/arduino-songs
 */
 
 #include <Arduino.h>
@@ -44,6 +45,23 @@ int NoteDurations6[]  = {21, 21, 21, 128, 128, 21, 21, 21, 128, 64, 21, 21, 21, 
 // Melody 7: Star Wars Imperial March
 int melody7[] = {  a4, R,  a4, R,  a4, R,  f4, R, c5, R,  a4, R,  f4, R, c5, R, a4, R,  e5, R,  e5, R,  e5, R,  f5, R, c5, R,  g5, R,  f5, R,  c5, R, a4, R};
 int NoteDurations7[]  = {  50, 20, 50, 20, 50, 20, 40, 5, 20, 5,  60, 10, 40, 5, 20, 5, 60, 80, 50, 20, 50, 20, 50, 20, 40, 5, 20, 5,  60, 10, 40, 5,  20, 5, 60, 40};
+ 
+// Melody 8: PinkPanther
+int melody8[] = {REST, NOTE_DS4, 
+  NOTE_E4, REST, NOTE_FS4, NOTE_G4, REST, NOTE_DS4,
+  NOTE_E4, NOTE_FS4, NOTE_G4, NOTE_C5, NOTE_B4, NOTE_E4, NOTE_G4, NOTE_B4,   
+  NOTE_AS4, NOTE_A4, NOTE_G4, NOTE_E4, NOTE_D4, 
+  NOTE_E4, REST, REST, NOTE_DS4};
+/*int NoteDurations8[]  = {2,4,8,8, 
+  -4,8,8,-4,8,8,
+  -8,8,-8,8,-8,8,-8,8,   
+  2,-16,-16,-16,-16, 
+  2,4,8,4};*/
+  int NoteDurations8[]  = {2,8, 
+  4,8,8,4,8,8,
+  8,8,8,8,8,8,8,8,   
+  2,16,16,16,16, 
+  2,4,8,4};
  
 void setup() { 
   pinMode(BUZZER_PIN, OUTPUT);
@@ -180,7 +198,26 @@ void playMelody(int melodyNum) {
         // stop the tone playing:
         noTone(BUZZER_PIN);
       }
-    }                                  
+    }     
+    if(melodyNum == 8){
+      repeatDelay = 1000;
+    // iterate over the notes of the melody:
+      int size = sizeof(NoteDurations8) / sizeof(int);
+
+      for (int thisNote = 0; thisNote < size; thisNote++) {
+        // to calculate the note duration, take one second divided by the note type.
+        //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
+        int noteDuration = 1000 / NoteDurations8[thisNote];
+        tone(BUZZER_PIN, melody8[thisNote], noteDuration);
+
+        // to distinguish the notes, set a minimum time between them.
+        // the note's duration + 30% seems to work well:
+        int pauseBetweenNotes = noteDuration * 1.30;
+        delay(pauseBetweenNotes);
+        // stop the tone playing:
+        noTone(BUZZER_PIN);
+      }
+    }                                    
 }
  
 // LOOP //
@@ -196,3 +233,5 @@ void loop() {  if (Serial.available()) // Check to see if at least one character
         playMelody(melodyNum);
         delay(repeatDelay);
 }
+
+

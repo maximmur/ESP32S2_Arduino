@@ -118,5 +118,6 @@
 #define  c6    955
  
 #define  R     0      // Define a special note, 'R', to represent a rest
+#define REST      0
 
 #endif
