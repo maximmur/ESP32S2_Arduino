@@ -3,18 +3,15 @@ ESP32-S2;Arduino;Platformio
 Определяем размер и тип подключенной SD карты
 Determine the size and type of the connected SD card
 
-Используемый модуль:
-Подключение:
+Используемый модуль: HW-203
+Подключение:  * #define SCK  IO36 (fspiclk)
+              * #define MISO Io37 (fspiq)
+              * #define MOSI IO35 (fspid)
+              * #define CS   IO34 (fspics0)
+              * GND
+              * 3.3V
 Пример вывода:
-
-CS
-SCK
-MISO
-MOSI
-
-WP
-HOLD
-*/
+ */
 #include <Arduino.h>
 #include "SD.h"
 
